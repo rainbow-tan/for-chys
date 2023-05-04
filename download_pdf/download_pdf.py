@@ -2,8 +2,6 @@ import datetime
 import json
 import os.path
 
-import requests
-
 
 def is_update(old: list, save_name: str, size: int):
     for one in old:
@@ -33,9 +31,21 @@ def compare(now: str, save_name: str, size: int):
 
 
 def download():
+    import requests
+
+    headers = {
+        'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/113.0.0.0 Safari/537.36',
+        'Accept': 'text/html,application/xhtml+xml,application/xml;q=0.9,image/avif,image/webp,image/apng,*/*;q=0.8,application/signed-exchange;v=b3;q=0.7',
+        'Accept-Language': 'en-US,en;q=0.9',
+        'Connection': 'keep-alive',
+        'Upgrade-Insecure-Requests': '1',
+    }
+
+    # response = requests.get('', headers=headers)
+
     # url 替换为你的链接 TODO
-    url = "https://tse2-mm.cn.bing.net/th/id/OIP-C.taD0yuVYGePBADOU5r_P7gHaMl?w=115&h=196&c=7&r=0&o=5&pid=1.7"
-    response = requests.get(url)
+    url = "http://edc.micron.com/mti/SEG001/APPENG/B58R_NAND_Design_Datasheet.pdf"
+    response = requests.get(url, headers=headers)
     text = response.content
     basename = url.split("/")[-1]
     # basename = "123.png"  # TODO 后续需要注释掉
