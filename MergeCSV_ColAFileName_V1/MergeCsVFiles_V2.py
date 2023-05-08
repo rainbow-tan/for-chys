@@ -34,6 +34,8 @@ def main():
         new_row = list(map(lambda x: change_str_to_number(x), row))
         new_data.append(new_row)
 
+    new_data.insert(0, new_data[1])  # todo 是否拷贝row3到row1
+
     book = openpyxl.Workbook()  # 创建空白工作薄
     sheet = book.active  # 获取当前默认工作表
     sheet.name = '工作表'  # 修改工作表名称
