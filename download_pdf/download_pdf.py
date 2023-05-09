@@ -90,6 +90,8 @@ def download_pdf():
 
     options = webdriver.ChromeOptions()
     options.add_experimental_option("excludeSwitches", ["enable-logging"])
+    options.add_argument('window-size=200,200')
+    options.add_argument('window-position=0,1000')
     options.add_experimental_option('prefs', {
         "download.default_directory": path,  # Change default directory for downloads
         "download.prompt_for_download": False,  # To auto download the file
