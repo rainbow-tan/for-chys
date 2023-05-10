@@ -78,7 +78,7 @@ def do(obj):
 
 
 def read_txt():
-    with open('AddressList.txt') as f:
+    with open('AddressList_NewNameList.txt') as f:
         lines = f.readlines()
     lines = list(filter(lambda x: str(x).strip(), lines))
     lines = list(map(lambda x: str(x).strip(), lines))

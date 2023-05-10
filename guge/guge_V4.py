@@ -143,7 +143,7 @@ def rename_file(lines):
 
 
 def main():
-    lines = load_config("AddressList.txt")
+    lines = load_config("AddressList_NewNameList.txt")
     for line, _ in lines:
         # do(i+1)
         do(line)
