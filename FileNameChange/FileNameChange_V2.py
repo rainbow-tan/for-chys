@@ -20,6 +20,8 @@ def load_config(filename: str):
         data.append((src, desc))
     print(f"split info:{data}")
     return data
+
+
 def copy_file(src, dst):
     # 目标文件存在,直接覆盖
     # 目标是文件夹,则在文件夹中生成同名文件
@@ -31,6 +33,8 @@ def copy_file(src, dst):
     except Exception as e:
         msg = 'Fail copy file:{} to :{}, exception:{}'.format(os.path.abspath(src), os.path.abspath(dst), e)
         print(msg)
+
+
 def main():
     lines = load_config("AddressList_NewNameList.txt")
 
@@ -45,12 +49,11 @@ def main():
         src_sbs = os.path.abspath(name)
         if os.path.isfile(src_sbs):
             a, b = os.path.splitext(lines[i][1])
-            new_name = a + "-" + lines[i][0] + b
+            new_name = "{}{}{}{}".format(a, "-", lines[i][0], b)
             copy_file(src_sbs, new_name)
 
         else:
             raise Exception(f"不存在文件:{src_sbs}")
-
 
 
 if __name__ == '__main__':

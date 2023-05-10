@@ -129,7 +129,7 @@ def rename_file(lines):
         src_sbs = os.path.join(download_dir, name)
         if os.path.isfile(src_sbs):
             a, b = os.path.splitext(name)
-            new_name = a + "-" + lines[i] + b
+            new_name = "{}{}{}{}".format(a, "-", lines[i][0], b)
             info.append(new_name)
             copy_file(src_sbs, new_name)
 
