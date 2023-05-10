@@ -1,5 +1,7 @@
 # -*- encoding=utf-8 -*-
 import os
+import shutil
+
 
 def load_config(filename: str):
     filename = os.path.abspath(filename)
@@ -18,21 +20,37 @@ def load_config(filename: str):
         data.append((src, desc))
     print(f"split info:{data}")
     return data
+def copy_file(src, dst):
+    # 目标文件存在,直接覆盖
+    # 目标是文件夹,则在文件夹中生成同名文件
+    # create_folder(os.path.dirname(dst))
+    try:
+        shutil.copy2(src, dst)
+        # msg = 'Success copy file:{} to :{}'.format(os.path.abspath(src), os.path.abspath(dst))
+        # print(msg)
+    except Exception as e:
+        msg = 'Fail copy file:{} to :{}, exception:{}'.format(os.path.abspath(src), os.path.abspath(dst), e)
+        print(msg)
 def main():
-    load_config()
+    lines = load_config("AddressList_NewNameList.txt")
 
-    with open("file_name_change.txt", 'r') as f:
-        content = f.readlines()
-    new_content = []
-    for i in content:
-        new_content.append(i.strip())
-    for i in new_content:
-        d = i.split('\t')
-        try:
-            os.rename(src=d[0], dst=d[1])
-            print(f'success {d[0]} --> {d[1]}')
-        except Exception as e:
-            print(f"fail, e:{e}")
+    for i in range(len(lines)):
+
+        if i == 0:
+            name = f'spreadsheet-{lines[0][0]}.csv'
+        else:
+            name = f'spreadsheet ({i})-{lines[i][0]}.csv'
+        print(f"name:{name}")
+
+        src_sbs = os.path.abspath(name)
+        if os.path.isfile(src_sbs):
+            a, b = os.path.splitext(lines[i][1])
+            new_name = a + "-" + lines[i][0] + b
+            copy_file(src_sbs, new_name)
+
+        else:
+            raise Exception(f"不存在文件:{src_sbs}")
+
 
 
 if __name__ == '__main__':

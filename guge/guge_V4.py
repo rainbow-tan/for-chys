@@ -123,7 +123,7 @@ def rename_file(lines):
         if i == 0:
             name = 'spreadsheet.csv'
         else:
-            name = f' spreadsheet ({i}).csv'
+            name = f'spreadsheet ({i}).csv'
 
         print(f"src:{name}")
         src_sbs = os.path.join(download_dir, name)
