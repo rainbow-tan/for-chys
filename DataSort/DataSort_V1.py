@@ -7,6 +7,7 @@ import openpyxl
 from openpyxl.cell import Cell
 from openpyxl.workbook import Workbook
 from openpyxl.worksheet.worksheet import Worksheet
+from typing import List
 
 
 def traverse_folder(path: str, n: int = 99):
@@ -41,7 +42,7 @@ def traverse_folder(path: str, n: int = 99):
     return need_dir, need_files
 
 
-def read_xlsm(filename: str) -> list[list]:
+def read_xlsm(filename: str) -> List[list]:
     wb: Workbook = openpyxl.load_workbook(filename)
     ws: Worksheet = wb.active
     data = []
@@ -55,7 +56,7 @@ def read_xlsm(filename: str) -> list[list]:
     return data
 
 
-def read_csv(filename: str) -> list[list]:
+def read_csv(filename: str) -> List[list]:
     data = []
     with open(filename) as f:
         reader = csv.reader(f)
@@ -65,11 +66,11 @@ def read_csv(filename: str) -> list[list]:
     return data
 
 
-def get_xlsm_data(xlsx_path: str) -> list[list]:
+def get_xlsm_data(xlsx_path: str) -> List[list]:
     return read_xlsm(xlsx_path)
 
 
-def xlsm_data_to_dict(xlsm_data: list[list]) -> dict:
+def xlsm_data_to_dict(xlsm_data: List[list]) -> dict:
     print("=" * 50)
     row0 = xlsm_data[0]
     data = {}
@@ -108,7 +109,7 @@ def save_src(value: str):
         return value
 
 
-def sava_src_int_float(data: list[list]):
+def sava_src_int_float(data: List[list]):
     rows = []
     for row in data:
         row_new = list(map(lambda x: save_src(x), row))
@@ -117,7 +118,7 @@ def sava_src_int_float(data: list[list]):
     return rows
 
 
-def find_cut_index(xlsm_data_dict: dict, csv_data: list[list]):
+def find_cut_index(xlsm_data_dict: dict, csv_data: List[list]):
     rows0 = csv_data[0]
     cut_index = []
     for k, v in xlsm_data_dict.items():
@@ -152,7 +153,7 @@ class INFO:
         return self.__str__()
 
 
-def save_cut_line(cut_index: list, csv_data: list[list], csv_filename: str):
+def save_cut_line(cut_index: list, csv_data: List[list], csv_filename: str):
     cut_data = [csv_data[0]]
     for i in cut_index:
         cut_data.append(csv_data[i])
@@ -170,7 +171,7 @@ def save_cut_line(cut_index: list, csv_data: list[list], csv_filename: str):
     return info
 
 
-def save_not_cut_line(cut_index: list, csv_data: list[list], csv_filename: str):
+def save_not_cut_line(cut_index: list, csv_data: List[list], csv_filename: str):
     rows = []
     for i, row in enumerate(csv_data):
         if i not in cut_index:
@@ -180,7 +181,7 @@ def save_not_cut_line(cut_index: list, csv_data: list[list], csv_filename: str):
         w.writerows(rows)
 
 
-def cut(cut_index: list, csv_data: list[list], csv_filename: str):
+def cut(cut_index: list, csv_data: List[list], csv_filename: str):
     info = save_cut_line(cut_index, csv_data, csv_filename)
     save_not_cut_line(cut_index, csv_data, csv_filename)
     return info
@@ -209,7 +210,7 @@ def find_all_csv():
     return csv_files
 
 
-def deal_many_files(csv_files: list[str], xlsm_data_dict: dict):
+def deal_many_files(csv_files: List[str], xlsm_data_dict: dict):
     max_workers = len(csv_files) if len(csv_files) <= 20 else 20
     executor = ThreadPoolExecutor(max_workers)
     results = []
