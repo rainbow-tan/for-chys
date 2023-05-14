@@ -1,55 +1,65 @@
 import csv
 import time
+from typing import List
 
-from pynput.keyboard import Key, Controller
+from pynput.keyboard import Controller, Key
+
+# ----------------------------配置区----------------------------
+START = 'E'  # 插入的首行
+END = 'G'  # 插入的尾行
+SLEEP_TIME = 5  # 等待多少秒后开始插入
+INTERVAL = 0.5  # 模拟按下键盘后,每种操作之间的间隔 即按下右键后输入内容 按下左键与下一个按下左键 太快了系统反应不过来
+# --------------------------------------------------------------
+alphabet = ['A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J', 'K', 'L', 'M', 'N', 'O', 'P', 'Q', 'R', 'S', 'T', 'U',
+            'V', 'W', 'X', 'Y', 'Z']
 
 
+def get_insert_string() -> List[list]:
+    insert_string = []
+    with open('MeasurementData.csv') as f:
+        reader = csv.reader(f)
+        start = START
+        end = END
+        for data in reader:
+            row = []
+            for j in range(alphabet.index(start), alphabet.index(end) + 1):
+                row.append(data[j])
+            print(f'row:{row}')
+            insert_string.append(row)
+    print(f'insert_string:{insert_string}')
+    return insert_string
 
 
+def insert(insert_string: List[list]):
+    keyboard = Controller()
+    for row in insert_string:
+        print(f'row:{row}')
+        length = sum(list(map(lambda x: len(str(x)), row))) + 1
+        for index, data in enumerate(row):
+            print(f"data:{data}")
+            value = str(data)
+            keyboard.type(value)
+            if index != len(row) - 1:
+                time.sleep(INTERVAL)
+                keyboard.tap(Key.right)  # 点击右箭头
+                time.sleep(INTERVAL)
+        print(f'length:{length}')
+        # keyboard.type(value)
+        for i in range(length):
+            keyboard.tap(Key.left)
+            time.sleep(INTERVAL)
 
-need = []
-with open('MeasurementData.csv') as f:
-    reader = csv.reader(f)
-    for i in reader:
-        need.append(i[4])  # E
-        need.append(i[5])  # F
-print(need)
+        keyboard.tap(Key.down)
+        time.sleep(INTERVAL)
 
-keyboard = Controller()
-start_time = 5
-print(f"after {start_time} second begin")
-time.sleep(start_time)
 
-line = 0
-while line < len(need):
-    keyboard.type(str(need[line]))  # 输入
-    line += 1
+def main():
+    insert_string = get_insert_string()
+    print(f"等待{SLEEP_TIME}秒后开始插入")
+    time.sleep(SLEEP_TIME)
+    insert(insert_string)
+    print("结束了!!!")
 
-    time.sleep(1)  # 等待几秒再操作
-    right = Key.right  # 向右
-    keyboard.press(right)
-    keyboard.release(right)
 
-    time.sleep(1)  # 等待几秒再操作
-    keyboard.type(str(need[line]))  # 输入
-    length = len(str(need[line]))
-    n = 2  # 多移动几位
-    length += n
-    print(f"左移{length}位")
-    line += 1
-
-    time.sleep(1)  # 等待几秒再操作
-
-    for i in range(length):
-        left = Key.left  # 向左
-        keyboard.press(left)
-        keyboard.release(left)
-
-    time.sleep(1)  # 等待几秒再操作
-    down = Key.down  # 向下
-    keyboard.press(down)
-    keyboard.release(down)
-
-    time.sleep(1)  # 等待几秒再操作
-
-print("exit...")
+if __name__ == '__main__':
+    main()
