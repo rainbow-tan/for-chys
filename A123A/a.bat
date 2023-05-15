@@ -1,0 +1,1 @@
+python a.py 1 2 3 && python a.py 1 5 9
