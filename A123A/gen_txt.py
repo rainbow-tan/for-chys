@@ -2,8 +2,8 @@ import os.path
 from typing import List
 
 # ----------------------------配置区----------------------------
-BAT_NAME = r"bat.bat"
-INDEX = 4  # 第几个元素表示名称
+BAT_NAME = r"a.bat"
+INDEX = 3  # 第几个元素表示名称
 TXT_NAME = r"AddressList_NewNameList.txt"
 
 
@@ -31,7 +31,7 @@ def write(names: List[str]):
     txt_name = os.path.abspath(TXT_NAME)
     if not os.path.isdir(os.path.dirname(txt_name)):
         os.makedirs(os.path.dirname(txt_name))
-    info = list(map(lambda x: f'xxxx\t{x}', names))
+    info = list(map(lambda x: f'xxxx\t{x}\n', names))
     with open(txt_name, 'w') as f:
         f.writelines(info)
     print(f"save to {txt_name}")
