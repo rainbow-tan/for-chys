@@ -2,12 +2,14 @@ import ast
 import csv
 import os.path
 from concurrent.futures import ThreadPoolExecutor
+from typing import List
 
 import openpyxl
+import pandas as pd
 from openpyxl.cell import Cell
 from openpyxl.workbook import Workbook
 from openpyxl.worksheet.worksheet import Worksheet
-from typing import List
+from pandas import DataFrame
 
 
 def traverse_folder(path: str, n: int = 99):
@@ -187,12 +189,47 @@ def cut(cut_index: list, csv_data: List[list], csv_filename: str):
     return info
 
 
+def aaa(a, k, xlsm_data_dict: dict):
+    print(f'k:{k}')
+    print(f'a:{a}')
+    print(f'a:{type(a)}')
+    v = xlsm_data_dict[k]
+    print(f'v:{v}')
+    print("----")
+    for i in v:
+        for j in a:
+            print(f"j:{j}")
+
+            if str(i) in str(j):
+                print("aaaa!")
+                # return True
+        print(i in a)
+    return False
+
+
 def _deal_one_file(xlsm_data_dict: dict, csv_filename: str):
-    csv_data = read_csv(csv_filename)
-    csv_data = sava_src_int_float(csv_data)
-    cut_index = find_cut_index(xlsm_data_dict, csv_data)
-    info = cut(cut_index, csv_data, csv_filename)
-    return info
+    # df:DataFrame=pd.read_csv(csv_filename,usecols=xlsm_data_dict.keys())
+    df: DataFrame = pd.read_csv(csv_filename)
+    print(f"df:{df}")
+    # for k  in xlsm_data_dict:
+    #     print("ss")
+    #     c=df[ aaa( df[k],k,xlsm_data_dict),:]
+    #     print(f'c:{c}')
+    print("*" * 50)
+    dfs = []
+    for k in xlsm_data_dict:
+        for v in xlsm_data_dict[k]:
+            print(f"选{k}列包含字符串{v}的")
+            df2 = df[df[k].str.contains(str(v))]
+            print(f'df2:{df2}')
+            print("*" * 10)
+            dfs.append(df2)
+    print(f'dfs:{dfs}')
+    df3 = pd.concat(dfs)
+    print(f'df3:{df3}')
+    df4: DataFrame = df3.drop_duplicates()
+    print(f'df4:{df4}')
+    df4.to_csv("切下来的行.csv", index=False)
 
 
 def deal_one_file(xlsm_data_dict: dict, csv_filename: str):
@@ -233,9 +270,9 @@ def main():
     xlsm_data_dict = xlsm_data_to_dict(xlsm_data)
 
     csv_files = find_all_csv()
-    deal_many_files(csv_files, xlsm_data_dict)
+    # deal_many_files(csv_files, xlsm_data_dict)
 
-    # deal_one_file(xlsm_data_dict, 'CSV.csv')
+    deal_one_file(xlsm_data_dict, 'CSV.csv')
 
 
 if __name__ == '__main__':
