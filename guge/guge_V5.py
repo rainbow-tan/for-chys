@@ -148,8 +148,8 @@ def rename_file(lines):
         else:
             raise Exception(f"不存在文件, 可能没下载下来:{src_sbs}")
 
-    with open("SpreadsheetList.txt", "w") as f:
-        f.writelines(info)
+    # with open("SpreadsheetList.txt", "w") as f:
+    #     f.writelines(info)
 
     print("rename file end")
 
