@@ -100,7 +100,7 @@ def copy_folder(src, dst, delete=True):
     if delete:
         delete_folder(dst)
     try:
-        shutil.copytree(src, dst)
+        shutil.move(src, dst)
     except Exception as e:
         msg = 'Fail copy folder:{} to path:{}, exception:{}'.format(src, dst, e)
         print(msg)
@@ -125,9 +125,9 @@ def main():
     for need_path in need_paths:
         deal_folder(need_path)
 
-    for need_path in need_paths:
-        delete_folder(need_path)  # 是否删除源文件夹
-        pass
+    # for need_path in need_paths:
+    #     delete_folder(need_path)  # 是否删除源文件夹
+    #     pass
 
 
 if __name__ == '__main__':
