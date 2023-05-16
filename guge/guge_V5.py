@@ -114,6 +114,18 @@ def copy_file(src, dst):
         print(msg)
 
 
+def delete_file(file):
+    file = os.path.abspath(file)
+    if os.path.isfile(file):
+        try:
+            os.remove(file)
+            msg = 'Success delete file:{}'.format(file)
+            print(msg)
+        except Exception as e:
+            msg = 'Failed delete file:{}, exception:{}'.format(file, e)
+            print(msg)
+
+
 def rename_file(lines):
     info = []
     print("rename file begin")
@@ -132,7 +144,7 @@ def rename_file(lines):
             new_name = "{}{}{}{}".format(a, "-", lines[i][0], b)
             info.append(new_name)
             copy_file(src_sbs, new_name)
-
+            delete_file(src_sbs)  # 删除下载的文件
         else:
             raise Exception(f"不存在文件, 可能没下载下来:{src_sbs}")
 

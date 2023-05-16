@@ -1,1 +1,0 @@
-python a.py 1 2.csv 3 && python a.py 1 5.csv 9
