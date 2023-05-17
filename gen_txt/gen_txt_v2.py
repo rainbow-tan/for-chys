@@ -36,7 +36,7 @@ def add_info(names: List[str]):
         only_name, suffix = os.path.splitext(os.path.basename(name))
         # print(f"only name:{only_name}")
         # print(f"suffix:{suffix}")
-        new = F'{PREFIX}{only_name}{SUFFIX}{suffix}\n'
+        new = F'146xx\t{PREFIX}{only_name}{SUFFIX}{suffix}.csv\n'
         print(f'new:{new}')
         info.append(new)
     return info
