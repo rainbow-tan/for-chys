@@ -1,8 +1,9 @@
+# coding=utf-8
 import csv
 import os
 
 
-def change_str_to_number(s: str):
+def change_str_to_number(s):
     try:
         e = eval(s)
         if type(e) == int:
@@ -33,7 +34,7 @@ def delete_all_csv(csvs):
 
 def main():
     csvs = list(filter(lambda x: os.path.isfile(x) and str(x).lower().endswith('.csv'), os.listdir('.')))
-    print(f'csv:{csvs}')
+    print(csv)
 
     all_data = []
     for index1, file in enumerate(csvs):
@@ -50,13 +51,13 @@ def main():
         new_data.append(new_row)
 
     filename = "aggregated_csv_files_no_bad_data.csv"
-    with open(filename, 'w', newline="") as f:
+    with open(filename, 'w') as f:
         w = csv.writer(f)
         w.writerows(new_data)
 
     delete_all_csv(csvs)  # 是否删除所有csv
 
-    print(f"共处理了{len(csvs)}个CSV文件")
+    print("共处理了%d个CSV文件"%len(csvs))
 
 
 if __name__ == '__main__':
