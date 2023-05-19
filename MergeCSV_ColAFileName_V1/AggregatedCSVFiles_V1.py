@@ -20,11 +20,9 @@ def delete_file(file):
     if os.path.isfile(file):
         try:
             os.remove(file)
-            msg = 'Success delete file:{}'.format(file)
-            print(msg)
+
         except Exception as e:
-            msg = 'Failed delete file:{}, exception:{}'.format(file, e)
-            print(msg)
+           pass
 
 
 def delete_all_csv(csvs):
@@ -55,7 +53,7 @@ def main():
         w = csv.writer(f)
         w.writerows(new_data)
 
-    # delete_all_csv(csvs)  # 是否删除所有csv
+    delete_all_csv(csvs)  # 是否删除所有csv
 
     print("共处理了%d个CSV文件"%len(csvs))
 
