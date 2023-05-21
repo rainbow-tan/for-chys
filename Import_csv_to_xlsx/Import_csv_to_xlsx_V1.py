@@ -70,7 +70,11 @@ def read_csv_content(filename):
                 need.append(None)
         need_data.append(need)
     print(f"need    :{need_data}")
-
+    c=[""]*(ord(end)-ord(start))
+    print(f"         :{c}")
+    for i in range(50):
+        need_data.append(c)
+    print(f"need    :{need_data}")
     return need_data
 
 
@@ -111,10 +115,10 @@ def update_xlsx(csv_data: dict):
         insert_data = csv_data[k]
         for row in insert_data:
             for data in row:
-                if not data:
-                    pass
-                else:
-                    sheet.cell(i, j, change_str_to_number(data))
+                # if not data:
+                #     pass
+                # else:
+                sheet.cell(i, j, change_str_to_number(data))
                 j += 1
             i += 1
             j = 1
