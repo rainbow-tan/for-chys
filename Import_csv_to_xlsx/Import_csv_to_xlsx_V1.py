@@ -112,8 +112,9 @@ def update_xlsx(csv_data: dict):
         for row in insert_data:
             for data in row:
                 if not data:
-                    continue
-                sheet.cell(i, j, change_str_to_number(data))
+                    pass
+                else:
+                    sheet.cell(i, j, change_str_to_number(data))
                 j += 1
             i += 1
             j = 1
