@@ -1,4 +1,3 @@
-import csv
 import time
 from typing import List
 
@@ -72,6 +71,8 @@ def insert(insert_string: List[list]):
     for row in insert_string:
         print(f'row:{row}')
         length = sum(list(map(lambda x: len(str(x)), row))) + 1
+        count_n = max(list(map(lambda x: str(x).count('\n'), row)))
+        print(f"count n:{count_n}")
         for index, data in enumerate(row):
             print(f"data:{data}")
             value = str(data)
@@ -85,13 +86,14 @@ def insert(insert_string: List[list]):
         for i in range(length):
             keyboard.tap(Key.left)
             # time.sleep(INTERVAL)
-
-        keyboard.tap(Key.down)
-        time.sleep(INTERVAL)
+        left_count = count_n + 1 if count_n else 1
+        for j in range(left_count):
+            keyboard.tap(Key.down)
+            time.sleep(INTERVAL)
 
 
 def main():
-    insert_string=get_insert_string()
+    insert_string = get_insert_string()
     # insert_string = get_insert_string()
     print(f"等待{SLEEP_TIME}秒后开始插入")
     time.sleep(SLEEP_TIME)
