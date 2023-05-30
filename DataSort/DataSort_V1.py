@@ -2,12 +2,12 @@ import ast
 import csv
 import os.path
 from concurrent.futures import ThreadPoolExecutor
+from typing import List
 
 import openpyxl
 from openpyxl.cell import Cell
 from openpyxl.workbook import Workbook
 from openpyxl.worksheet.worksheet import Worksheet
-from typing import List
 
 
 def traverse_folder(path: str, n: int = 99):

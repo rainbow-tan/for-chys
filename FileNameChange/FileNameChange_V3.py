@@ -34,6 +34,7 @@ def copy_file(src, dst):
         msg = 'Fail copy file:{} to :{}, exception:{}'.format(os.path.abspath(src), os.path.abspath(dst), e)
         print(msg)
 
+
 def delete_file(file):
     file = os.path.abspath(file)
     if os.path.isfile(file):
@@ -44,6 +45,8 @@ def delete_file(file):
         except Exception as e:
             msg = 'Failed delete file:{}, exception:{}'.format(file, e)
             print(msg)
+
+
 def main():
     lines = load_config("AddressList_NewNameList.txt")
 

@@ -6,7 +6,7 @@ import os
 def deal_output1():
     filename = 'output1.txt'
     find_str = 'HSRT'
-    f = open(filename,'r')
+    f = open(filename, 'r')
     # with open(filename) as f:
     lines = f.readlines()
     print(lines)

@@ -70,7 +70,7 @@ def read_csv_content(filename):
                 need.append(None)
         need_data.append(need)
     print(f"need    :{need_data}")
-    c=[""]*(ord(end)-ord(start))
+    c = [""] * (ord(end) - ord(start))
     print(f"         :{c}")
     for i in range(50):
         need_data.append(c)
@@ -87,6 +87,8 @@ def read_all_csv(csv_info: dict) -> dict:
 
 
 XLSX_NAME = "XLSX_File_Before_RunCode.xlsx"
+
+
 def change_str_to_number(s: str):
     try:
         e = eval(s)
@@ -97,6 +99,7 @@ def change_str_to_number(s: str):
     except Exception as e:
         return s
     return s
+
 
 def update_xlsx(csv_data: dict):
     wb: Workbook = openpyxl.load_workbook(XLSX_NAME)

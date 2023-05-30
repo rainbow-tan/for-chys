@@ -34,7 +34,7 @@ def do(obj):
     prefs = {'profile.default_content_settings.popups': 0,
              'download.default_directory': download_dir}
     options.add_experimental_option('prefs', prefs)
-    #options.add_argument('--headless')  # headless browser. Note: if browser is hidden, no download action.
+    # options.add_argument('--headless')  # headless browser. Note: if browser is hidden, no download action.
     web = webdriver.Chrome(options=options)
     web.minimize_window()
     url = f'https://siwcharwizprod1.sing.micron.com/#/ViewSummaryTable?char_summary_id={obj}'
@@ -47,11 +47,11 @@ def do(obj):
         element.click()
     except:
         print("cannot find element, weblink changed? or time not enough?")
-    #time.sleep(30) #30sec
+    # time.sleep(30) #30sec
     path = r"."  # download path
     path = os.path.abspath(path)
     now = datetime.datetime.now()
-    sleep = datetime.timedelta(hours=0, minutes=30) # max wait time for 1 file download
+    sleep = datetime.timedelta(hours=0, minutes=30)  # max wait time for 1 file download
     time.sleep(10)  # wait for a temp file to disappear
     while True:
         # print('into check')

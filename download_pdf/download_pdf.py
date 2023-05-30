@@ -1,11 +1,14 @@
 import datetime
 import json
 import logging
+import logging.handlers
 import os.path
 import shutil
 import time
-import logging.handlers
+
 from selenium import webdriver
+
+
 def create_folder(folder):
     folder = os.path.abspath(folder)
     if not os.path.exists(folder):
@@ -16,6 +19,7 @@ def create_folder(folder):
         except Exception as e:
             msg = 'Failed create folder:{}, exception:{}'.format(folder, e)
             print(msg)
+
 
 def init_logger(log_name='logs/log.log',
                 logger_string='ROOT',
@@ -65,6 +69,7 @@ def init_logger(log_name='logs/log.log',
         logger.addHandler(rollback_handler)  # 添加回滚日志句柄
     return logger  # 返回句柄，以便于使用
 
+
 today = datetime.datetime.now().strftime("%Y-%m-%d")
 print(f"today is {today}")
 log_name = f"{today}.log"
@@ -72,6 +77,8 @@ if os.path.isfile(log_name):
     os.remove(log_name)
     print(f"删除已经存在的日志:{log_name}")
 log = init_logger(log_name)
+
+
 def download_pdf():
     path = r"D:\下载"
     url = 'http://edc.micron.com/mti/SEG001/APPENG/B58R_NAND_Design_Datasheet.pdf'

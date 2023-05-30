@@ -22,7 +22,7 @@ def delete_file(file):
             os.remove(file)
 
         except Exception as e:
-           pass
+            pass
 
 
 def delete_all_csv(csvs):
@@ -49,13 +49,13 @@ def main():
         new_data.append(new_row)
 
     filename = "aggregated_csv_files_no_bad_data.csv"
-    with open(filename, 'wb',) as f:
+    with open(filename, 'wb', ) as f:
         w = csv.writer(f)
         w.writerows(new_data)
 
     delete_all_csv(csvs)  # 是否删除所有csv
 
-    print("共处理了%d个CSV文件"%len(csvs))
+    print("共处理了%d个CSV文件" % len(csvs))
 
 
 if __name__ == '__main__':

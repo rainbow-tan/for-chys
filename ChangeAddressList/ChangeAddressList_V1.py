@@ -39,6 +39,8 @@ def write(bat_info: List[str]):
     ret = list(map(lambda x: f"{x}\n", bat_info))
     with open(TXT_NAME, 'w') as f:
         f.writelines(lines + ["\n\n"] + ret)
+
+
 def create_folder(folder):
     folder = os.path.abspath(folder)
     if not os.path.exists(folder):
@@ -49,6 +51,8 @@ def create_folder(folder):
         except Exception as e:
             msg = 'Failed create folder:{}, exception:{}'.format(folder, e)
             print(msg)
+
+
 def move_file(src, desc):
     # move_file("1.txt", "1.txt")  # 不报错
     # move_file("1.txt", "2.txt")  # OK
@@ -61,6 +65,8 @@ def move_file(src, desc):
         shutil.move(src, desc)
     except Exception as e:
         print(f"移动文件报错, src:{src}, desc:{desc}, {e}")
+
+
 def rename(names: list):
     t = datetime.datetime.now().strftime(f"%d%b_%H%M%p")
     print(t)
@@ -76,7 +82,7 @@ def rename(names: list):
     print(f"s:{s}")
     name = f"{name}_{s}.csv"
     print(f"name:{name}")
-    move_file(TXT_NAME,name)
+    move_file(TXT_NAME, name)
 
 
 def main():
