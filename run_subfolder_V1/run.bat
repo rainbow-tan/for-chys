@@ -1,0 +1,1 @@
+echo current_path:%~dp0
