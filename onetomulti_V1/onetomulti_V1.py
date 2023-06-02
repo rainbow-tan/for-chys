@@ -1,9 +1,10 @@
 import os.path
+import re
 from concurrent.futures import ThreadPoolExecutor
 
 from typing import List
 
-STR = "PATTEN"  # TODO 修改这些地方
+STR = "PATTEN.*"  # TODO 修改这些地方
 
 
 def split_content(filename: str):
@@ -13,7 +14,8 @@ def split_content(filename: str):
 
     all_index = []
     for index, line in enumerate(lines):
-        if STR in line:
+        # if STR in line:
+        if re.search(STR,line):
             all_index.append(index)
     # print(f"all index:{all_index}")
     split_lines = []
