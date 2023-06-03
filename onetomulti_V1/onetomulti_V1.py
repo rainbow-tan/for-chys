@@ -19,6 +19,7 @@ def split_content(filename: str):
     filename = os.path.abspath(filename)
     encoding = get_coding(filename)
     with open(filename, 'r', encoding=encoding) as f:
+        # with open(filename, 'r', encoding='utf-8') as f:
         lines = f.readlines()
 
     all_index = []
@@ -74,8 +75,9 @@ def write_file(filename: str, split_lines: List[list]):
     # print("----------")
     for lines in split_lines:
         # print(f"lines:{lines}")
+        encoding = get_coding(filename)
         new_name = gen_filename(filename, lines[0])
-        with open(new_name, 'w') as f:
+        with open(new_name, 'w', encoding=encoding) as f:
             f.writelines(lines)
 
 
