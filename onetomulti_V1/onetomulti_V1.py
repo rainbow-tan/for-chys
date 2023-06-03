@@ -1,21 +1,30 @@
 import os.path
 import re
 from concurrent.futures import ThreadPoolExecutor
-
 from typing import List
+
+import chardet
 
 STR = "PATTEN.*"  # TODO 修改这些地方
 
 
+def get_coding(filename):
+    raw = open(filename, 'rb').read()
+    detect = chardet.detect(raw)
+    print(f"detect:{detect}")
+    return detect['encoding']
+
+
 def split_content(filename: str):
     filename = os.path.abspath(filename)
-    with open(filename, 'r') as f:
+    encoding = get_coding(filename)
+    with open(filename, 'r', encoding=encoding) as f:
         lines = f.readlines()
 
     all_index = []
     for index, line in enumerate(lines):
         # if STR in line:
-        if re.search(STR,line):
+        if re.search(STR, line):
             all_index.append(index)
     # print(f"all index:{all_index}")
     split_lines = []
